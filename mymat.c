@@ -4,7 +4,7 @@
 int main(){
     matrix MAT_A, MAT_B, MAT_C, MAT_D, MAT_E, MAT_F;
     int i;
-    /*
+
     struct mats_list mats[] = {
             {"MAT_A", &MAT_A},
             {"MAT_B", &MAT_B},
@@ -13,7 +13,6 @@ int main(){
             {"MAT_E", &MAT_E},
             {"MAT_F", &MAT_F}
     };
-     */
 
 
     char temp[32];
@@ -23,6 +22,7 @@ int main(){
     double *read_args;
     matrix *p1, *p2, *p3;
     enum boolean COMMAND;
+    /*
     struct mats_list mats[6];
     mats[0].name = "MAT_A";
     mats[0].mat = &MAT_A;
@@ -36,7 +36,7 @@ int main(){
     mats[0].mat = &MAT_E;
     mats[0].name = "MAT_F";
     mats[0].mat = &MAT_F;
-
+    */
     memset(temp, 0, sizeof temp);
     memset(command, 0, sizeof command);
     memset(line, 0, sizeof line);
@@ -60,8 +60,8 @@ int main(){
         line_index = 0;
         COMMAND = TRUE;
         NEW_LINE = FALSE;
-        line_index = next_argument(command, line, line_index, COMMAND);
 
+        line_index = next_argument(command, line, line_index, COMMAND);
         COMMAND = FALSE;
 
 
@@ -75,19 +75,26 @@ int main(){
 
 
         else if (strcmp(command, "read_mat")==0){
+
             read_args = (double *)malloc(16*sizeof(double ));
+
             line_index = next_argument(temp, line, line_index, COMMAND);
+
             if (*temp == '\0'){
                 printf("Missing argument\n");
             }
             else {
+                printf("hey\n");
+
                 p1 = search_mat(temp, mats);
+
                 if (p1 != NULL) {
                     memset(temp, 0, sizeof temp); /* cleans temp */
                     for (i = 0; i < pow(SIZE, 2) && NEW_LINE == FALSE; i++) {
                         line_index = next_argument(temp, line, line_index, COMMAND);
                         *(read_args + i) = atof(temp);
                         memset(temp, 0, sizeof temp); /* cleans temp */
+
                     }
                     if (NEW_LINE == FALSE) {
                         printf("Extraneous text after end of command\n");
